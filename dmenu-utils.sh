@@ -16,7 +16,7 @@ function a {
 # basically, grep anything with line numbers enabled and pipe it to vo
 alias vo="cat | dmenu -i -p 'vo' -l 25 | awk -F: '{print \"+\"\$2,\$1}' | xargs sh -c 'vim "\$@" < /dev/tty' vim"
 
-# select file to complete 
+# select file to complete
 db-select() {
   local cmd="command find -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
     -o -type f -print \
@@ -34,5 +34,15 @@ db-file-widget() {
   READLINE_POINT=$(( READLINE_POINT + ${#selected} ))
 }
 
+# search in history
+db-history() {
+  history | tac | dmenu -l 15 -i -p "history" | cut -d\  -f4-
+}
+
 # file complete in bash
 bind -x '"\C-t": "db-file-widget"'
+
+# history in bash
+bind '"\er": redraw-current-line'
+bind '"\e^": history-expand-line'
+bind '"\C-r": " \C-e\C-u`db-history`\e\C-e\e^\er"'
