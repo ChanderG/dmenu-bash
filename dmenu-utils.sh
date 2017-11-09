@@ -1,6 +1,9 @@
 # descend into the subdirectories below
 function d {
-  cd $(find . -type d 2>/dev/null | dmenu -i -p '>' -l 10)
+  dest=$(find . -type d 2>/dev/null | dmenu -i -p '>' -l 10)
+  if [ "$dest" != "" ];then
+    cd $dest
+  fi
 }
 
 # ascend to the directories directly above you
