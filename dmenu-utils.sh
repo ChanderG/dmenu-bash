@@ -1,6 +1,9 @@
 # descend into the subdirectories below
 function d {
-  dest=$(find . -type d 2>/dev/null | dmenu -i -p '>' -l 10)
+  # can also use find alternatives like bfs etc here
+  # dest=$(find . \( ! -regex '.*/\..*' \) -type d -maxdepth 5 2>/dev/null | dmenu -i -p '>' -l 10)
+  # also consider various sorting options for tree
+  dest=$(tree -idfc -L 6 2>/dev/null | dmenu -i -p '>' -l 10)
   if [ "$dest" != "" ];then
     cd $dest
   fi
