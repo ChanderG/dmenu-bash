@@ -7,7 +7,6 @@ function d {
 }
 
 # ascend to the directories directly above you
-# has a known flaw: if 2 anscestors have the same name, defaults to the one higher on the tree
 function a {
   path=$(pwd | tr '/' ' ')
   dest=$(for i in $path; do echo $i; done | tac | dmenu -i -p '<')
